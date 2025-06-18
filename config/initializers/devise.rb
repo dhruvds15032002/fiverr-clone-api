@@ -38,6 +38,28 @@ Devise.setup do |config|
   # available as additional gems.
   require 'devise/orm/active_record'
   require 'devise/jwt'
+
+  config.jwt do |jwt|
+    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
+
+    # explicitly match the endpoints
+    jwt.dispatch_requests = [
+      ['POST', '/users'],           # sign up
+      ['POST', '/users/sign_in']    # login
+    ]
+
+    jwt.revocation_requests = [
+      ['DELETE', '/users/sign_out'] # logout
+    ]
+
+    jwt.expiration_time = 7.days.to_i
+
+    # ensure JSON requests are handled
+    jwt.request_formats = { user: [:json] }
+  end
+
+  # prevent Devise trying to redirect / use flash
+  config.navigational_formats = []
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
@@ -304,19 +326,6 @@ Devise.setup do |config|
   # Note: These might become the new default in future versions of Devise.
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
-  config.navigational_formats = []
-
-  config.jwt do |jwt|
-    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']  # set in your ENV
-    jwt.dispatch_requests = [
-      ['POST', %r{^/users/sign_in$}],
-      ['POST', %r{^/users$}]  # sign_up
-    ]
-    jwt.revocation_requests = [
-      ['DELETE', %r{^/users/sign_out$}]
-    ]
-    jwt.expiration_time = 7.days.to_i
-  end
 
   # ==> Configuration for :registerable
 
