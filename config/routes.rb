@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # You can namespace your API if you like:
   namespace :api do
     namespace :v1 do
-      # future resources: gigs, orders, reviews...
+      resources :gigs, only: %i[index show create update destroy]
     end
   end
 end
