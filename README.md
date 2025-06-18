@@ -57,6 +57,27 @@ PostgreSQL
 rbenv or rvm (recommended)
 
 
+👥 Roles & Their Core Features
+Role	Core Features	Timeline
+Freelancer
+• Manage own Gigs (CRUD)
+• View incoming Orders
+• Update Order status (accept/complete)
+• See Reviews on completed Orders	Sprint 1 (done)
+
+Client
+• Browse/Search Gigs
+• Place an Order on a Gig
+• View own Order history & status
+• Leave Review & Rating after completion	Sprint 2 (next)
+
+Admin	
+• Manage Users (block/unblock)
+• Moderate Gigs (approve/remove)
+• View all Orders & Reviews
+• System metrics/dashboard	Sprint 3 (after)
+
+
 ## 📁 Folder Structure (Overview)
 
 ```plaintext
