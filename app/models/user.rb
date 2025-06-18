@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtDenylist
   
+  has_many :gigs
   enum role: { client: 0, freelancer: 1, admin: 2 }
 
   validates :name, presence: true

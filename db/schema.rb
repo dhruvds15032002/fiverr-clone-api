@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_15_174843) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_17_054336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "gigs", force: :cascade do |t|
+    t.string "title", limit: 150, null: false
+    t.text "description", null: false
+    t.integer "price_cents", default: 0, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_gigs_on_title"
+    t.index ["user_id"], name: "index_gigs_on_user_id"
+  end
 
   create_table "jwt_denylists", force: :cascade do |t|
     t.string "jti"
@@ -36,4 +47,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_15_174843) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "gigs", "users"
 end
