@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_17_054336) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_19_025506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,20 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_17_054336) do
     t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "gig_id", null: false
+    t.bigint "client_id", null: false
+    t.bigint "freelancer_id", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "price_cents", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["freelancer_id"], name: "index_orders_on_freelancer_id"
+    t.index ["gig_id"], name: "index_orders_on_gig_id"
+    t.index ["status"], name: "index_orders_on_status"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -48,4 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_17_054336) do
   end
 
   add_foreign_key "gigs", "users"
+  add_foreign_key "orders", "gigs"
+  add_foreign_key "orders", "users", column: "client_id"
+  add_foreign_key "orders", "users", column: "freelancer_id"
 end
