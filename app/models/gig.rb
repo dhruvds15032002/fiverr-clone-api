@@ -1,5 +1,6 @@
 class Gig < ApplicationRecord
   belongs_to :freelancer, class_name: "User", foreign_key: :user_id
+  has_many :orders, dependent: :destroy
 
   validates :title,       presence: true, length: { maximum: 150 }
   validates :description, presence: true, length: { minimum: 20 }
