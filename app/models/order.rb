@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   belongs_to :gig
   belongs_to :client,     class_name: "User"
   belongs_to :freelancer, class_name: "User"
+  has_one :review, dependent: :destroy
 
   enum status: {
     pending:     0,
