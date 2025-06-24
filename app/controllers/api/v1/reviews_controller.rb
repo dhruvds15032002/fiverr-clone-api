@@ -13,7 +13,6 @@ module Api::V1
       render json: reviews, each_serializer: ReviewSerializer, meta: pagination_meta(reviews)
     end
 
-    # POST /api/v1/reviews
     def create
       review = current_user.orders_as_client.find_by(id: review_params[:order_id])&.build_review(
         rating: review_params[:rating],
@@ -23,6 +22,7 @@ module Api::V1
       return render_error("Order not found or not yours", :forbidden) unless review
 
       if review.save
+        ReviewMailer.review_submitted(review.id).deliver_later
         render json: review, status: :created, serializer: ReviewSerializer
       else
         render_validation_errors(review)
