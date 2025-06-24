@@ -1,0 +1,11 @@
+<h1>New Order Received!</h1>
+<p>
+  Hello <%= @order.freelancer.name %>,<br>
+  You have a new order for your gig: <strong><%= @order.gig.title %></strong>.
+</p>
+<p>
+  Client: <%= @order.client.name %> (<%= @order.client.email %>)<br>
+  Price: $<%= sprintf('%.2f', @order.price_cents / 100.0) %><br>
+  Order ID: <%= @order.id %>
+</p>
+<p>Please log in to your dashboard to accept or manage this order.</p>

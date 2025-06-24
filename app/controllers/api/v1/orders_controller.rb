@@ -27,6 +27,7 @@ module Api::V1
         price_cents: gig.price_cents
       )
       if order.save
+        OrderMailer.order_confirmation(order.id).deliver_later
         render json: order, status: :created, serializer: OrderSerializer
       else
         render_validation_errors(order)
