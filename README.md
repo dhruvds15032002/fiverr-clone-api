@@ -26,6 +26,8 @@ bundle install
 rails db:create db:migrate
 rails s
 
+Start with **master** Branch.
+
 🔐 Authentication (JWT)
 Users receive a JWT token on successful login.
 
