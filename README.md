@@ -43,6 +43,7 @@ Devise + JWT setup (or custom token auth based on your configuration).
 - ✍️ Reviews and Ratings System
 - 💬 Conversations and Messaging *(coming soon)*
 - 📊 Admin-level APIs *(optional)*
+- ✅ Email notifications (on order events)
 
 ---
 
